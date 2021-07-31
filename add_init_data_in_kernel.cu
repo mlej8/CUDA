@@ -31,6 +31,24 @@ add(int n, float *x, float *y)
         y[i] = x[i] + y[i];
 }
 
+/**
+ * In order to eliminate the migration overhead from CPU to GPU
+ * 
+ * We can initialize data in a kernel so that the `add` kernel won't page fault.
+ * This is a simple CUDA c++ Kernel to initialize the data.
+ * Simply replace the host code that initializes `x` and `y` with a launch of this kernel.
+ */
+__global__ void init(int n, float *x, float *y)
+{
+    int index = threadIdx.x + blockIdx.x * blockDim.x;
+    int stride = blockDim.x * gridDim.x;
+    for (int i = index; i < n; i += stride)
+    {
+        x[i] = 1.0f;
+        y[i] = 2.0f;
+    }
+}
+
 int main(void)
 {
     int N = 1 << 20; // 1M elements
@@ -63,12 +81,10 @@ int main(void)
     cudaMallocManaged(&x, N * sizeof(float));
     cudaMallocManaged(&y, N * sizeof(float));
 
-    // initialize x and y arrays on the host
-    for (int i = 0; i < N; i++)
-    {
-        x[i] = 1.0f;
-        y[i] = 2.0f;
-    }
+    // initialize x and y arrays on device
+    int block_size = 256;
+    int num_blocks = (N + block_size - 1) / block_size;
+    init<<<num_blocks, block_size>>>(N, x, y);
 
     /**
      * Launch the add() kernel, which invokes it on the GPU.
@@ -102,8 +118,6 @@ int main(void)
      * Since I have N elements to process and 256 threads per block, I just need to calculate the number of blocks to get at least N threads.
      * I simply divide N by the block size (being careful to round up in case N is not a multiple of blockSize).
      */
-    int block_size = 256;
-    int num_blocks = (N + block_size - 1) / block_size;
     add<<<num_blocks, block_size>>>(N, x, y);
 
     // we need to wait until the kernel is done before it accesses the results (because CUDA kernel launches don't block the calling CPU thread)

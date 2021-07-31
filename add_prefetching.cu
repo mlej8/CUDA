@@ -71,6 +71,19 @@ int main(void)
     }
 
     /**
+     * Prefetching
+     * 
+     * Use Unified Memory prefetching to move the data to the GPU after initializing it to eliminate the migration overhead (from host to device) and get a more accurate measurement of the vector add kernel performance.
+     * CUDA provides cudaMemPrefetchAsync() for this purpose.
+     * We can see that by doing this, there are no longer any GPU page faults reported.
+     */
+    // Prefetch the data to the GPU
+    int device = -1;
+    cudaGetDevice(&device);
+    cudaMemPrefetchAsync(x, N * sizeof(float), device, NULL);
+    cudaMemPrefetchAsync(y, N * sizeof(float), device, NULL);
+
+    /**
      * Launch the add() kernel, which invokes it on the GPU.
      * CUDA kernel launches are specified using the triple angle bracket syntax 
      * It represents the execution configuration and tells CUDA runtime how many parallel threads to use for the launch on the GPU
@@ -163,4 +176,5 @@ int main(void)
  *  1. Move the data initialization to the GPU in another CUDA kernel.
  *  2. Run the kernel many times and look at the average and minimum run times. 
  *  3. Prefetch the data to GPU memory before running the kernel.
+ * 
  */
