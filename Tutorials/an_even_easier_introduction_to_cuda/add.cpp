@@ -8,6 +8,10 @@ void add(int n, float *x, float *y)
     y[i] = x[i] + y[i];
 }
 
+/**
+ * @brief CPU version of adding 1 million elements in array.
+ * 
+ */
 int main(void)
 {
   int N = 1 << 20; // 1M elements
