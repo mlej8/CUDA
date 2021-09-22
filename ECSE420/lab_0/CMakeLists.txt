@@ -17,12 +17,12 @@ set(CMAKE_CUDA_SEPARABLE_COMPILATION  ON)
 
 # choose CUDA Architecture
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
-  set(CMAKE_CUDA_ARCHITECTURES 80)
+  set(CMAKE_CUDA_ARCHITECTURES 60)
 endif()
 
 # binary file names
-set(rectify lab_0_rectify)
-set(pooling lab_0_pooling)
+set(rectify rectify)
+set(pooling pool)
 
 # create a list of libraries
 set(LIBS image_io image_equality)
