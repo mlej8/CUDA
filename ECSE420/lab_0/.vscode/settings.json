@@ -1,0 +1,9 @@
+{
+    "cmake.debugConfig": {
+        "args": [
+            "a",
+            "b",
+            "c"
+        ]
+    }
+}
