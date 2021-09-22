@@ -1,9 +1,9 @@
 /* Check whether two images are the same */
-#include "lodepng.h"
+#include "lodepng.hpp"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define MAX_MSE 0.00001f
 
 float get_MSE(char* input_filename_1, char* input_filename_2)
 {
@@ -33,21 +33,4 @@ float get_MSE(char* input_filename_1, char* input_filename_2)
   free(image2);
 
   return MSE;
-}
-
-int main()
-{
-  char* input_filename_1 = "Test_1_rectified.png";
-  char* input_filename_2 = "Test_1_rectified_seq.png";
-
-  // get mean squared error between image1 and image2
-  float MSE = get_MSE(input_filename_1, input_filename_2);
-
-  if (MSE < MAX_MSE) {
-    printf("Images are equal (MSE = %f, MAX_MSE = %f)\n",MSE,MAX_MSE);
-  } else {
-    printf("Images are NOT equal (MSE = %f, MAX_MSE = %f)\n",MSE,MAX_MSE);
-  }
-
-  return 0;
 }
