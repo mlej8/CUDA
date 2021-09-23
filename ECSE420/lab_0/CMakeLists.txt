@@ -38,10 +38,17 @@ add_executable(${pooling} pooling.cu)
 target_link_libraries(${pooling} PRIVATE ${LIBS})
 target_include_directories(${pooling} PUBLIC ${INCLUDE_DIR})
 
-# if debugging allow, add debugging flag for CUDA compiling (turn this into an CMake option)
+# if debug build, add debugging flag for CUDA compiling 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 target_compile_options(${pooling} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-G>)
+endif()
 
 # pooling
 add_executable(${rectify} rectify.cu)
 target_link_libraries(${rectify} PRIVATE ${LIBS})
 target_include_directories(${rectify} PUBLIC ${INCLUDE_DIR})
+
+# if debug build, add debugging flag for CUDA compiling 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(${rectify} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-G>)
+endif()
