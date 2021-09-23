@@ -5,6 +5,6 @@ __global__ void print_kernel() {
 }
 
 int main() {
-    print_kernel<<<10, 10>>>();
+    print_kernel<<<1, 1>>>();
     cudaDeviceSynchronize();
 }

@@ -1,9 +1,9 @@
 {
     "cmake.debugConfig": {
         "args": [
-            "a",
-            "b",
-            "c"
+            "'/home/mlej8/projects/CUDA/ECSE420/lab_0/Test Images/Test_1.png'",
+            "'/home/mlej8/projects/CUDA/ECSE420/lab_0/Test Images/Test_1_pool.png'",
+            "1"
         ]
     }
 }
