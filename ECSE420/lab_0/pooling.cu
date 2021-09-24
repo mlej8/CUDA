@@ -7,47 +7,41 @@ using namespace std;
 
 /**
  * @brief Perform 2x2 max-pooling.
- * In this exercise, do not worry about the case in which the image cannot be
- * divided perfectly into 2x2 squares – you may assume that the input test image
- * will have even width and height lengths
+ * // TODO generate description for arguments
  */
 __global__ void pool(unsigned char* gpu_image, unsigned char* new_image, unsigned int width,
-                     unsigned int height) {
+                     unsigned int height, unsigned int num_channels) {
     // TODO add check here if out of bound index then skip it.
     // TODO ask TA how to do the three dimensions with threads
     // TODO how do we do so that one thread is responsible for more than one block?
-    printf("hello");
     // int index = threadIdx.x;  // index of current thread within block
     // int stride = blockDim.x;  // number of threads in a block
-    int num_channels = 4;
     // for (int i = (index * 2) % ; i < height; i += stride * 2) {
     for (int i = 0; i < height; i += 2) {
-        // for (int j = (index * 2) % width; j < width; j += stride * 2)
-        printf("%d", i);
+        // for (int j = (index * 2) % width; j < width; j += stride * 2) {
         for (int j = 0; j < width; j += 2) {
-            printf("%d", j);
             for (int z = 0; z < num_channels; z++) {
                 //  _________
                 //  |   |   |
                 //  |___|___|
                 //  |   |   |
                 //  |___|___|
-                int flat_index = i * width * 4 + j * 4;
-                unsigned char values[4] = {gpu_image[flat_index + z],
-                                           gpu_image[flat_index + num_channels],
-                                           gpu_image[flat_index + z + width * 4],
-                                           gpu_image[flat_index + z + width * 4 + num_channels]};
+                int flat_index = i * width * 4 + j * 4 + z;
+                unsigned char values[4] = {gpu_image[flat_index],                               // top left
+                                           gpu_image[flat_index + num_channels],                // top right
+                                           gpu_image[flat_index + width * 4],                   // bottom left
+                                           gpu_image[flat_index + width * 4 + num_channels]};   // bottom right
                 unsigned char max_value = 0;
                 for (int v = 0; v < 4; v++) {
                     if (values[v] > max_value) {
                         max_value = values[v];
                     }
                 }
-                new_image[(i / 2) * (width / 2) + (j / 2) + z] = max_value;
+                
+                new_image[(i / 2) * (width / 2) * 4 + (j / 2) * 4 + z] = max_value;
             }
         }
-        printf("done");
-        // // one thread doing all three dimensions
+        // // one thread doing each of all three dimensions
         // int x = 0;
         // int y = 0;
         // int z = 0;
@@ -101,10 +95,10 @@ int main(int argc, char* argv[]) {
     // TODO: do we preserve the `a` dimension in rgba ?
 
     // execute kernels
-    pool<<<num_blocks, num_threads>>>(gpu_image, new_image, width, height);
+    pool<<<num_blocks, num_threads>>>(gpu_image, new_image, width, height, num_channels);
 
     // tell CPU to wait until all threads in kernel are done execution before
-    // accessing the results
+    // accessing the resultsa
     cudaDeviceSynchronize();
 
     // 5. Transfer results from device to host
