@@ -14,12 +14,14 @@ __global__ void pool(unsigned char* gpu_image, unsigned char* new_image, unsigne
     // TODO add check here if out of bound index then skip it.
     // TODO ask TA how to do the three dimensions with threads
     // TODO how do we do so that one thread is responsible for more than one block?
-    // int index = threadIdx.x;  // index of current thread within block
-    // int stride = blockDim.x;  // number of threads in a block
-    // for (int i = (index * 2) % ; i < height; i += stride * 2) {
-    for (int i = 0; i < height; i += 2) {
-        // for (int j = (index * 2) % width; j < width; j += stride * 2) {
+    
+    int index = threadIdx.x;  
+    int stride = blockDim.x; // add gridDim.x - number of blocks in a grid if we start to use multiple blocks (start by keeping block at 1)
+    
+    for (int i = (index * 2); i < height; i += stride * 2) {
+    // for (int i = 0; i < height; i += 2) {
         for (int j = 0; j < width; j += 2) {
+        // for (int j = 0; j < width; j += 2) {
             for (int z = 0; z < num_channels; z++) {
                 //  _________
                 //  |   |   |
