@@ -35,27 +35,22 @@ __global__ void pool(unsigned char* gpu_image, unsigned char* new_image, unsigne
     // if (blockIdx.x == 0) return;
     // int i = (threadIdx.x / (width/2)) * 2;
     // int j = (threadIdx.x % (width /2)) * 2;
-    int index = threadIdx.x * 2 * 4 + 4 * 2 * blockIdx.x * blockDim.x;  
+    int index = threadIdx.x * 2 * 4 + 4 * 2 * blockIdx.x * blockDim.x;
     int i = ((index / 4) / (width)) * 2;
     int j = ((index / 4) % (width));
-    if (i < height) {
-        for (int z = 0; z < num_channels; z++) {
-            // int z = blockIdx.;
-            int flat_index = i * width * 4 + j * 4 + z;
-            unsigned char values[4] = {
-                gpu_image[flat_index],                              // top left
-                gpu_image[flat_index + num_channels],               // top right
-                gpu_image[flat_index + width * 4],                  // bottom left
-                gpu_image[flat_index + width * 4 + num_channels]};  // bottom right
-            unsigned char max_value = 0;
-            for (int v = 0; v < 4; v++) {
-                if (values[v] > max_value) {
-                    max_value = values[v];
-                }
-            }
-            new_image[(i / 2) * (width / 2) * 4 + (j / 2) * 4 + z] = max_value;
+    int z = blockIdx.y;
+    int flat_index = i * width * 4 + j * 4 + z;
+    unsigned char values[4] = {gpu_image[flat_index],                              // top left
+                               gpu_image[flat_index + num_channels],               // top right
+                               gpu_image[flat_index + width * 4],                  // bottom left
+                               gpu_image[flat_index + width * 4 + num_channels]};  // bottom right
+    unsigned char max_value = 0;
+    for (int v = 0; v < 4; v++) {
+        if (values[v] > max_value) {
+            max_value = values[v];
         }
     }
+    new_image[(i / 2) * (width / 2) * 4 + (j / 2) * 4 + z] = max_value;
 }
 
 int main(int argc, char* argv[]) {
@@ -72,7 +67,7 @@ int main(int argc, char* argv[]) {
 
     // 1. declare and allocate host and device memory
     unsigned char *image, *gpu_image, *new_image;
-    unsigned int error, width, height, num_blocks, num_channels = 4;
+    unsigned int error, width, height, num_channels = 4;
 
     // 2. loading input image (initialize host data)
     error = lodepng_decode32_file(&image, &width, &height, input_img_filename);
@@ -92,10 +87,10 @@ int main(int argc, char* argv[]) {
                cudaMemcpyHostToDevice);
 
     // rounding up in case image size is not a multiple of block_size
-    // dim3 num_blocks(((width / 2) * (height / 2) + block_size - 1) / block_size, num_channels, 1);
+    dim3 num_blocks(((width / 2) * (height / 2) + block_size - 1) / block_size, num_channels, 1);
     // // dim3 num_blocks(add num_channels
-    num_blocks = ((width / 2) * (height / 2) + block_size - 1) /
-                 block_size;  // dim3 num_blocks(add num_channels
+    // num_blocks = ((width / 2) * (height / 2) + block_size - 1) /
+    block_size;  // dim3 num_blocks(add num_channels
     // num_blocks = 2;
 
     // execute kernels
