@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # separately compile CUDA files 
-set(CMAKE_CUDA_SEPARABLE_COMPILATION  ON)
+set(CMAKE_CUDA_SEPARABLE_COMPILATION ON)
 
 # choose CUDA Architecture
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
@@ -40,7 +40,7 @@ target_include_directories(${pooling} PUBLIC ${INCLUDE_DIR})
 
 # if debug build, add debugging flag for CUDA compiling 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-target_compile_options(${pooling} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-G>)
+  target_compile_options(${pooling} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-g -G>)
 endif()
 
 # pooling
@@ -50,5 +50,5 @@ target_include_directories(${rectify} PUBLIC ${INCLUDE_DIR})
 
 # if debug build, add debugging flag for CUDA compiling 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(${rectify} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-G>)
+    target_compile_options(${rectify} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-g -G>)
 endif()
