@@ -7,34 +7,18 @@ using namespace std;
 
 /**
  * @brief Perform 2x2 max-pooling.
- * // TODO generate description for arguments
+ * 
+ * @param gpu_image pointer to image on gpu memory.
+ * @param new_image pointer to new image.
+ * @param width width of image.
+ * @param height height of image.
+ * @param num_channels number of channels of the pooled image.
  */
 __global__ void pool(unsigned char* gpu_image, unsigned char* new_image, unsigned int width,
                      unsigned int height, unsigned int num_channels) {
-    // TODO: what to do if we have more threads than needed - only use one thread
-    // per 2x2 square
-    // TODO: how can this be improved by leveraging all threads ? can we have more
-    // than one thread per 2x2 cube
-    // TODO: do we preserve the `a` dimension in rgba ?
-    // TODO add check here if out of bound index then skip it.
-    // TODO ask TA how to do the three dimensions with threads
-    // TODO how do we do so that one thread is responsible for more than one block?
-    // one thread doing each of all three dimensions
-    // int x = 0;
-    // int y = 0;
-    // int z = 0;
-    // split the image into 2x2 squares to determine number of threads needed,
-    // e.g. each thread will be responsible for one square
     // variables defined within device code do not need to be specified as device
     // variables because they are assumed to reside on the device.
 
-    // int index = threadIdx.x;
-    // number total threads represents number of 2x2 blocks we jump at each index
-    // int stride = blockDim.x;  // add gridDim.x - number of blocks in a grid if we start to use
-    // multiple blocks (start by keeping block at 1)
-    // if (blockIdx.x == 0) return;
-    // int i = (threadIdx.x / (width/2)) * 2;
-    // int j = (threadIdx.x % (width /2)) * 2;
     int index = threadIdx.x * 2 * 4 + 4 * 2 * blockIdx.x * blockDim.x;  
     int i = ((index / 4) / (width)) * 2;
     int j = ((index / 4) % (width));
