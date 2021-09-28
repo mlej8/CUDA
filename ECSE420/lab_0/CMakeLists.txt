@@ -22,7 +22,7 @@ endif()
 
 # binary file names
 set(rectify rectify)
-set(pooling pooling)
+set(pooling pool)
 
 # create a list of libraries
 set(LIBS image_io image_equality)
@@ -33,7 +33,7 @@ set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Helper")
 # add libraries
 add_subdirectory(Helper)
 
-# rectifier
+# pooling
 add_executable(${pooling} pooling.cu)
 target_link_libraries(${pooling} PRIVATE ${LIBS})
 target_include_directories(${pooling} PUBLIC ${INCLUDE_DIR})
@@ -43,7 +43,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   target_compile_options(${pooling} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-g -G>)
 endif()
 
-# pooling
+# rectifier
 add_executable(${rectify} rectify.cu)
 target_link_libraries(${rectify} PRIVATE ${LIBS})
 target_include_directories(${rectify} PUBLIC ${INCLUDE_DIR})
