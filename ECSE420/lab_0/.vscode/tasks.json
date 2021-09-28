@@ -9,7 +9,8 @@
             "command": "cmake",
             "args": [
                 "--build",
-                "${fileDirname}/build"
+                "${fileDirname}/build",
+                "--config", "Debug"
             ],
             "problemMatcher": [
                 "$nvcc"
