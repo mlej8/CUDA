@@ -72,6 +72,11 @@ int main(int argc, char* argv[]) {
     // rounding up in case image size is not a multiple of block_size
     dim3 num_blocks(((width / 2) * (height / 2) + block_size - 1) / block_size, num_channels, 1);
 
+    // prefetch memory onto GPU
+    int device = -1;
+    cudaGetDevice(&device);
+    cudaMemPrefetchAsync(new_image, (width / 2) * (height / 2) * num_channels * sizeof(unsigned char), device, NULL);
+
     // execute kernels
     pool<<<num_blocks, block_size>>>(gpu_image, new_image, width, height, num_channels);
 
