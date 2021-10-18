@@ -1,13 +1,14 @@
 {
     "cmake.debugConfig": {
         "args": [
-            "/home/mlej8/projects/CUDA/ECSE420/lab_1/input/input_100000.txt",
-            "100000",
-            "/home/mlej8/projects/CUDA/ECSE420/lab_1/output/output_100000.txt"
+            "/home/mlej8/projects/CUDA/ECSE420/lab_1/input/input_1000000.txt",
+            "1000000",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_1/output/output_1000000.txt"
         ]
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "functional": "cpp"
     }
 }
