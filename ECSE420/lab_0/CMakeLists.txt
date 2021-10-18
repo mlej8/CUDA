@@ -34,7 +34,7 @@ set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Helper")
 add_subdirectory(Helper)
 
 # pooling
-add_executable(${pooling} pooling.cu)
+add_executable(${pooling} pooling.cu Helper/lodepng.hpp)
 target_link_libraries(${pooling} PRIVATE ${LIBS})
 target_include_directories(${pooling} PUBLIC ${INCLUDE_DIR})
 
@@ -44,7 +44,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 # rectifier
-add_executable(${rectify} rectify.cu)
+add_executable(${rectify} rectify.cu Helper/lodepng.hpp)
 target_link_libraries(${rectify} PRIVATE ${LIBS})
 target_include_directories(${rectify} PUBLIC ${INCLUDE_DIR})
 
