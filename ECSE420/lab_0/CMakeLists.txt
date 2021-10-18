@@ -1,4 +1,4 @@
-# first command in a mkae file should always be specifying min cmake version required
+# first command in a make file should always be specifying min cmake version required
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
 # required languages are (C++ and CUDA)
