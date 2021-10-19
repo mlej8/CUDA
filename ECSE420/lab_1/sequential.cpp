@@ -57,5 +57,7 @@ int main(int argc, char *argv[]) {
   char *data = new char[input_file_length * 3 * sizeof(int)];
   ReadCSV(input_file_path, data);
   WriteOutput(output_file_path, sequential(data, input_file_length).c_str(), input_file_length);
+
+  delete data;
   return 0;
 }

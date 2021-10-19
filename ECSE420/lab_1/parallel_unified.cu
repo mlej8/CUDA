@@ -41,5 +41,8 @@ int main(int argc, char *argv[]) {
   
   // write final output
   WriteOutput(output_file_path, output, input_file_length);
+
+  cudaFree(output);
+  cudaFree(data);
   return 0;
 }

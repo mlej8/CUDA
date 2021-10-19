@@ -48,5 +48,9 @@ int main(int argc, char *argv[]) {
 
   // write final output
   WriteOutput(output_file_path, output, input_file_length);
+
+  delete output, data;
+  cudaFree(gpu_data);
+  cudaFree(logic_gate_output);
   return 0;
 }
