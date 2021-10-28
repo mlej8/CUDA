@@ -37,19 +37,23 @@ __global__ void convolve(unsigned char *gpu_image, unsigned char *new_image,
   if (z == 3) { // not manipulating alpha channel (directly copying over)
     new_image[i * new_width * num_channels + j * num_channels + z] = gpu_image[og_i * og_img_width * 4 + og_j * 4 + z];
   } else {
-  new_image[i * new_width * num_channels + j * num_channels + z] =
-      filter[0] *
-          gpu_image[(og_i - 1) * og_img_width * 4 + (og_j - 1) * 4 + z] +
+  new_image[i * new_width * num_channels + j * num_channels + z] = 
+      filter[0] * gpu_image[(og_i - 1) * og_img_width * 4 + (og_j - 1) * 4 + z] +
       filter[1] * gpu_image[(og_i - 1) * og_img_width * 4 + og_j * 4 + z] +
-      filter[2] *
-          gpu_image[(og_i - 1) * og_img_width * 4 + (og_j + 1) * 4 + z] +
+      filter[2] * gpu_image[(og_i - 1) * og_img_width * 4 + (og_j + 1) * 4 + z] +
       filter[3] * gpu_image[og_i * og_img_width * 4 + (og_j - 1) * 4 + z] +
       filter[4] * gpu_image[og_i * og_img_width * 4 + og_j * 4 + z] +
       filter[5] * gpu_image[og_i * og_img_width * 4 + (og_j + 1) * 4 + z] +
-      filter[6] *
-          gpu_image[(og_i + 1) * og_img_width * 4 + (og_j - 1) * 4 + z] +
+      filter[6] * gpu_image[(og_i + 1) * og_img_width * 4 + (og_j - 1) * 4 + z] +
       filter[7] * gpu_image[(og_i + 1) * og_img_width * 4 + og_j * 4 + z] +
       filter[8] * gpu_image[(og_i + 1) * og_img_width * 4 + (og_j + 1) * 4 + z];
+  }
+
+  // clipping output
+  if (new_image[i * new_width * num_channels + j * num_channels + z] >  255) {
+    new_image[i * new_width * num_channels + j * num_channels + z] = 255;
+  } else if (new_image[i * new_width * num_channels + j * num_channels + z] < 0) {
+    new_image[i * new_width * num_channels + j * num_channels + z] = 0;
   }
 }
 
