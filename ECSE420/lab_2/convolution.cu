@@ -32,8 +32,6 @@ __global__ void convolve(unsigned char *gpu_image, unsigned char *new_image,
   int og_i = i + 1;
   int og_j = j + 1;
 
-  // flat index for new image
-  // int flat_index = i * new_width * (num_channels - 1) + j * (num_channels - 1) + z;
   if (z == 3) { // not manipulating alpha channel (directly copying over)
     new_image[i * new_width * num_channels + j * num_channels + z] = gpu_image[og_i * og_img_width * 4 + og_j * 4 + z];
   } else {
