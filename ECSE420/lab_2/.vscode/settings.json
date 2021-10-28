@@ -1,0 +1,14 @@
+{
+    "cmake.debugConfig": {
+        "args": [
+            "/home/mlej8/projects/CUDA/ECSE420/lab_2/Test/Test_1.png",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_2/Output/Test_1.png",
+            "1"
+        ]
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "files.associations": {
+        "ostream": "cpp",
+        "functional": "cpp"
+    }
+}

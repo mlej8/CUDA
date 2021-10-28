@@ -38,14 +38,14 @@ __global__ void pool(unsigned char* gpu_image, unsigned char* new_image, unsigne
 int main(int argc, char* argv[]) {
     // validate input parameters
     if (argc != 4) {
-        std::cout << "Usage: " << argv[0]
-                  << " <name of input png> <name of output png> <# threads>." << std::endl;
+        cout << "Usage: " << argv[0]
+                  << " <name of input png> <name of output png> <# threads>." << endl;
         exit(1);
     }
 
     char* input_img_filename = argv[1];
     char* output_img_filename = argv[2];
-    int block_size = std::stoi(argv[3]);
+    int block_size = stoi(argv[3]);
 
     // 1. declare and allocate host and device memory
     unsigned char *image, *gpu_image, *new_image;
