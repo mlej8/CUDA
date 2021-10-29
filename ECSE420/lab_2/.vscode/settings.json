@@ -1,9 +1,9 @@
 {
     "cmake.debugConfig": {
         "args": [
-            "/home/mlej8/projects/CUDA/ECSE420/lab_2/Test/Test_1.png",
-            "/home/mlej8/projects/CUDA/ECSE420/lab_2/Output/Test_1.png",
-            "1"
+            "/home/2020/eli14/Projects/CUDA/ECSE420/lab_2/Test/Test_1.png",
+            "/home/2020/eli14/Projects/CUDA/ECSE420/lab_2/Output/Test_1.png",
+            "4"
         ]
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
