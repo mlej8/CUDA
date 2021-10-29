@@ -7,7 +7,7 @@
 using namespace std;
 
 /**
- * @brief Perform 2x2 max-pooling.
+ * @brief Perform 3x3 convolution.
  *
  * @param gpu_image pointer to image on gpu memory.
  * @param new_image pointer to new image.
@@ -20,9 +20,13 @@ __global__ void convolve(unsigned char *gpu_image, unsigned char *new_image,
                          unsigned int num_channels, float *filter) {
     // new image width
     int new_width = og_img_width - 2;
+    int new_height = og_img_height - 2;
 
     // index in the new image
     int index = blockDim.x * blockIdx.x + threadIdx.x;
+
+    // if out of range of convolved image
+    if (index >= new_width*new_height) return;
 
     // new image coordinates
     int i = index / new_width;  // integer division (discards any fractional remains)
