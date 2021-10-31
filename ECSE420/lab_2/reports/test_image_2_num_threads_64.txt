@@ -1,0 +1,84 @@
+Generating SQLite file reports/test_image_2_num_threads_64.sqlite from reports/test_image_2_num_threads_64.qdrep
+Using reports/test_image_2_num_threads_64.sqlite for SQL queries.
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/cudaapisum.py reports/test_image_2_num_threads_64.sqlite]... 
+
+ Time(%)  Total Time (ns)  Num Calls  Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)           Name         
+ -------  ---------------  ---------  ------------  ------------  ------------  ------------  ---------------------
+    96.6       94,064,144          3  31,354,714.7        60,070    93,930,424  54,192,154.4  cudaMalloc           
+     2.4        2,382,253          3     794,084.3        45,700     1,547,592     750,959.1  cudaMemcpy           
+     0.7          667,141          3     222,380.3       148,440       264,391      64,232.3  cudaFree             
+     0.2          199,111          1     199,111.0       199,111       199,111           0.0  cudaDeviceSynchronize
+     0.0           14,900          1      14,900.0        14,900        14,900           0.0  cudaLaunchKernel     
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/gpukernsum.py reports/test_image_2_num_threads_64.sqlite]... 
+
+ Time(%)  Total Time (ns)  Instances  Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)                                              Name                                             
+ -------  ---------------  ---------  ------------  ------------  ------------  -----------  ---------------------------------------------------------------------------------------------
+   100.0          122,049          1     122,049.0       122,049       122,049          0.0  convolve(unsigned char *, unsigned char *, unsigned int, unsigned int, unsigned int, float *)
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/gpumemtimesum.py reports/test_image_2_num_threads_64.sqlite]... 
+
+ Time(%)  Total Time (ns)  Count  Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)      Operation     
+ -------  ---------------  -----  ------------  ------------  ------------  -----------  ------------------
+    59.8        1,102,726      1   1,102,726.0     1,102,726     1,102,726          0.0  [CUDA memcpy DtoH]
+    40.2          741,124      2     370,562.0         1,120       740,004    522,469.9  [CUDA memcpy HtoD]
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/gpumemsizesum.py reports/test_image_2_num_threads_64.sqlite]... 
+
+ Total (MB)  Count  Average (MB)  Minimum (MB)  Maximum (MB)  StdDev (MB)      Operation     
+ ----------  -----  ------------  ------------  ------------  -----------  ------------------
+      8.294      2         4.147         0.000         8.294        5.865  [CUDA memcpy HtoD]
+      8.270      1         8.270         8.270         8.270        0.000  [CUDA memcpy DtoH]
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/osrtsum.py reports/test_image_2_num_threads_64.sqlite]... 
+
+ Time(%)  Total Time (ns)  Num Calls  Average (ns)   Minimum (ns)  Maximum (ns)  StdDev (ns)            Name         
+ -------  ---------------  ---------  -------------  ------------  ------------  ------------  ----------------------
+    61.1      901,514,519         20   45,075,726.0         7,550   100,121,204  47,422,264.0  poll                  
+    33.9      500,074,240          1  500,074,240.0   500,074,240   500,074,240           0.0  pthread_cond_timedwait
+     2.9       42,663,909        581       73,431.9         1,000     7,595,354     454,330.5  ioctl                 
+     1.3       19,859,354         29      684,805.3         1,130    19,510,544   3,621,074.4  fopen                 
+     0.5        7,989,074          9      887,674.9         1,030     7,978,614   2,659,102.2  fclose                
+     0.1        1,160,972          5      232,194.4         1,160     1,154,472     515,568.9  fread                 
+     0.1        1,112,392          1    1,112,392.0     1,112,392     1,112,392           0.0  fwrite                
+     0.1          931,502         64       14,554.7         1,800       259,641      31,567.6  mmap64                
+     0.0          432,880         81        5,344.2         1,730        15,270       1,597.6  open64                
+     0.0          250,171          9       27,796.8         4,480       137,590      41,839.3  sem_timedwait         
+     0.0          104,200          5       20,840.0        14,470        31,510       6,950.0  pthread_create        
+     0.0           54,700         11        4,972.7         1,050        16,260       4,193.4  mmap                  
+     0.0           32,290          1       32,290.0        32,290        32,290           0.0  fgets                 
+     0.0           21,140         11        1,921.8         1,000         3,950         906.9  write                 
+     0.0           17,560          6        2,926.7         1,490         4,810       1,509.2  open                  
+     0.0           10,220          5        2,044.0         1,450         2,530         405.9  munmap                
+     0.0            7,460          3        2,486.7         1,430         3,960       1,315.5  fgetc                 
+     0.0            6,260          2        3,130.0         1,540         4,720       2,248.6  socket                
+     0.0            4,800          1        4,800.0         4,800         4,800           0.0  pipe2                 
+     0.0            4,640          1        4,640.0         4,640         4,640           0.0  connect               
+     0.0            3,050          2        1,525.0         1,130         1,920         558.6  read                  
+     0.0            2,500          1        2,500.0         2,500         2,500           0.0  fcntl                 
+     0.0            1,340          1        1,340.0         1,340         1,340           0.0  bind                  
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/nvtxsum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain NV Tools Extension (NVTX) data
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/openmpevtsum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain OpenMP event data.
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/vulkanmarkerssum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain Vulkan Debug Extension (Vulkan Debug Util) data
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/pixsum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain DX11/DX12 CPU debug markers
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/khrdebugsum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain KHR Extension (KHR_DEBUG) data
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/khrdebuggpusum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain GPU KHR Extension (KHR_DEBUG) data
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/vulkangpumarkersum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain GPU Vulkan Debug Extension (GPU Vulkan Debug markers) data
+
+
+Running [/usr/local/cuda-11.4/nsight-systems-2021.3.2/target-linux-x64/reports/dx12gpumarkersum.py reports/test_image_2_num_threads_64.sqlite]... SKIPPED: reports/test_image_2_num_threads_64.sqlite does not contain DX12 GPU debug markers
+
+
