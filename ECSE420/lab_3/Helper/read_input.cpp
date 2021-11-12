@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 int read_input_one_two_four(int **input1, char* filepath){
  FILE* fp = fopen(filepath, "r");
     if (fp == NULL){
@@ -27,6 +28,7 @@ int read_input_one_two_four(int **input1, char* filepath){
 
 
 }
+
 int read_input_three(int** input1, int** input2, int** input3, int** input4,char* filepath){
     FILE* fp = fopen(filepath, "r");
     if (fp == NULL){
@@ -61,33 +63,33 @@ int read_input_three(int** input1, int** input2, int** input3, int** input4,char
     
 }
 
-int main(int argc, char *argv[]) {
-  // Variables
-  int numNodePtrs;
-  int numNodes;
-  int *nodePtrs_h;
-  int *nodeNeighbors_h;
-  int *nodeVisited_h;
-  int numTotalNeighbors_h;
-  int *currLevelNodes_h;
-  int numCurrLevelNodes;
-  int numNextLevelNodes_h;
-  int *nodeGate_h;
-  int *nodeInput_h;
-  int *nodeOutput_h;
+// int main(int argc, char *argv[]) {
+//   // Variables
+//   int numNodePtrs;
+//   int numNodes;
+//   int *nodePtrs_h;
+//   int *nodeNeighbors_h;
+//   int *nodeVisited_h;
+//   int numTotalNeighbors_h;
+//   int *currLevelNodes_h;
+//   int numCurrLevelNodes;
+//   int numNextLevelNodes_h;
+//   int *nodeGate_h;
+//   int *nodeInput_h;
+//   int *nodeOutput_h;
 
 
 
-  //output
-  int *nextLevelNodes_h;
+//   //output
+//   int *nextLevelNodes_h;
 
 
 
-  numNodePtrs = read_input_one_two_four(&nodePtrs_h, "input1.raw");
+//   numNodePtrs = read_input_one_two_four(&nodePtrs_h, "input1.raw");
 
-  numTotalNeighbors_h = read_input_one_two_four(&nodeNeighbors_h, "input2.raw");
+//   numTotalNeighbors_h = read_input_one_two_four(&nodeNeighbors_h, "input2.raw");
 
-  numNodes = read_input_three(&nodeVisited_h, &nodeGate_h, &nodeInput_h, &nodeOutput_h,"input3.raw");
+//   numNodes = read_input_three(&nodeVisited_h, &nodeGate_h, &nodeInput_h, &nodeOutput_h,"input3.raw");
 
-  numCurrLevelNodes = read_input_one_two_four(&currLevelNodes_h, "input4.raw");
-}
+//   numCurrLevelNodes = read_input_one_two_four(&currLevelNodes_h, "input4.raw");
+// }

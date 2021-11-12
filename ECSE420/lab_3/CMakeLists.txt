@@ -1,8 +1,8 @@
 # first command in a make file should always be specifying min cmake version required
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-# required languages are (C++ and CUDA)
-project(lab_3 LANGUAGES CXX CUDA VERSION 1.0) # lets CMake identify and verify the compiler it needs
+# required languages are (C, C++ and CUDA)
+project(lab_3 LANGUAGES C CXX CUDA VERSION 1.0) # lets CMake identify and verify the compiler it needs
 
 # let CUDA files be compiled according to C++14
 set(CMAKE_CUDA_STANDARD 14)
@@ -22,7 +22,8 @@ endif()
 
 # binary file names
 set(sequential sequential)
-set(global global_queuing)
+set(global_queuing global_queuing)
+set(block_queuing block_queuing)
 
 # include dirs
 set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Helper")
@@ -31,14 +32,26 @@ set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Helper")
 add_subdirectory(Helper)
 
 # create a list of libraries
-set(LIBS image_io image_equality)
+set(LIBS ${io} ${read_input})
+set(CUDA_LIBS ${io} ${logic_gate} ${read_input})
 
-# sequential
-add_executable(${convolution} convolution.cu Helper/wm.h)
-target_link_libraries(${convolution} PRIVATE ${LIBS})
-target_include_directories(${convolution} PUBLIC ${INCLUDE_DIR})
+add_executable(${sequential} sequential.cpp Helper/read_input.hpp Helper/io.hpp Helper/logic_gates.h)
+target_link_libraries(${sequential} ${LIBS})
+target_include_directories(${sequential} PUBLIC ${INCLUDE_DIR})
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(${sequential} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-g>)
+endif ()
 
-# if debug build, add debugging flag for CUDA compiling 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  target_compile_options(${convolution} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-g -G>)
-endif()
+add_executable(${global_queuing} global_queuing.cu Helper/read_input.hpp)
+target_link_libraries(${global_queuing} ${CUDA_LIBS})
+target_include_directories(${global_queuing} PUBLIC ${INCLUDE_DIR})
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(${global_queuing} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-g -G>)
+endif ()
+
+add_executable(${block_queuing} block_queuing.cu Helper/read_input.hpp)
+target_link_libraries(${block_queuing} ${CUDA_LIBS})
+target_include_directories(${block_queuing} PUBLIC ${INCLUDE_DIR})
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(${block_queuing} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-g -G>)
+endif ()
