@@ -29,9 +29,13 @@ void ReadCSV(const char *filename, char* data) {
   cout << "Done reading " << filename << endl;
 }
 
-void WriteOutput(const char *output_filename, const char* data, const int file_length) { 
+void WriteOutput(const char *output_filename, const int* data, const int file_length) { 
   ofstream output_fp(output_filename);
   string result;
+
+  // write the file length as the first line
+  result += to_string(file_length) + "\n";
+
   for (int i = 0; i < file_length; i++) {
     result += to_string(data[i]) + "\n";
   }

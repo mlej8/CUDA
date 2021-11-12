@@ -1,10 +1,3 @@
-set(compare_results compare_results)
-set(logic_gate logic_gate)
-set(compare_next_level_nodes compare_next_level_nodes)
-set(compare_node_output compare_node_output)
-set(read_input read_input)
-set(io io)
-
 # libraries
 add_library(${io} STATIC io.cpp io.hpp)
 add_library(${read_input} STATIC read_input.cpp read_input.hpp)

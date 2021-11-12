@@ -24,6 +24,12 @@ endif()
 set(sequential sequential)
 set(global_queuing global_queuing)
 set(block_queuing block_queuing)
+set(compare_results compare_results)
+set(logic_gate logic_gate)
+set(compare_next_level_nodes compare_next_level_nodes)
+set(compare_node_output compare_node_output)
+set(read_input read_input)
+set(io io)
 
 # include dirs
 set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Helper")

@@ -5,6 +5,6 @@
 void ReadCSV(const char *filename, char* data);
 
 // write program output to a file
-void WriteOutput(const char *output_filename, const char* data, const int file_length);
+void WriteOutput(const char *output_filename, const int* data, const int file_length);
 
 #endif
