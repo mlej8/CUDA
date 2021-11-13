@@ -3,5 +3,5 @@
 
 #include "logic_gates.h"
 
-__global__ void logic_gate(const char *input, char *output, size_t input_file_length);
+__device__ int logic_gate(int gate_type, int x, int y);
 #endif

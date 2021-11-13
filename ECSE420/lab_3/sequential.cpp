@@ -1,5 +1,5 @@
 #include <iostream>
-#include <queue>
+#include <vector>
 
 #include "io.hpp"
 #include "logic_gates.h"
@@ -7,10 +7,8 @@
 
 using namespace std;
 
-// string gate_solver(const char *data, int input_file_length) {
 int gate_solver(int gate_type, int x, int y) {
     int result;
-
     switch (gate_type) {
         case AND:
             result = x & y;
@@ -40,7 +38,7 @@ int gate_solver(int gate_type, int x, int y) {
 
 int main(int argc, char *argv[]) {
     if (argc != 7) {
-        cout << "./sequential <path_to_input_1.raw> <path_to_input_2.raw> "
+        cout << "Usage: ./sequential <path_to_input_1.raw> <path_to_input_2.raw> "
                 "<path_to_input_3.raw> <path_to_input_4.raw> "
                 "<output_nodeOutput_filepath> <output_nextLevelNodes_filepath>"
              << endl;
