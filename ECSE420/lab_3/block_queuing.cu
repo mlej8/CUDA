@@ -21,7 +21,7 @@ __global__ void block_queuing(int numCurrLevelNodes, int blockQueueCapacity,
   // counter used by threads within the same block
   __shared__ int blockQueueCounter;
 
-  // use first thread to initialize counter
+  // use first thread in the block to initialize counter
   if (threadIdx.x == 0) {
     blockQueueCounter = 0;
   }
@@ -61,15 +61,30 @@ __global__ void block_queuing(int numCurrLevelNodes, int blockQueueCapacity,
             blockQueueCapacity) {  // add it to the block queue if there's still
                                    // space
           atomicExch(&block_queue[atomicAdd(&blockQueueCounter, 1)], neighbor);
-        } else {  // queue is full, add it directly to the global queue
-          atomicExch(&nextLevelNodes_h[atomicAdd(numNextLevelNodes_h, 1)],
-                     neighbor);
-          // TODO optimize to write shared memory to global memory once full
-          // TODO allocate space for block queue to go into global queue
-          // (instead of at the end...) -> restore blockQueueCounter
-          // TODO store block queue in global queue
-          // atomicExch(&blockQueueCounter, 0);
-          // cudaMemSet(block_queue, )
+        } 
+        
+        if (blockQueueCounter == blockQueueCapacity) { // queue is full, flush block queue to global queue
+
+          // allocate space on the global memory for the block queue
+          int global_mem_start_idx = atomicAdd(numNextLevelNodes_h, blockQueueCounter); // note atomicAdd returns old index
+          for (int idx = threadIdx.x; idx < blockQueueCounter;
+               idx += blockDim.x) {
+            // copy data from shared memmory to global memory
+            atomicExch(&nextLevelNodes_h[global_mem_start_idx + idx],
+                       block_queue[idx]);
+
+            // clear block queue
+            block_queue[idx] = 0;
+          }
+
+          // restore block queue counter
+          if (threadIdx.x == 0) {
+            blockQueueCounter = 0;
+          }
+
+          // need to synchronize here to make sure block_queue has been cleared
+          // and counter has been reset
+          __syncthreads();
         }
       }
     }
@@ -84,9 +99,10 @@ __global__ void block_queuing(int numCurrLevelNodes, int blockQueueCapacity,
   // add remaining data in the shared queue of the current block to the global
   // queue
   if (blockQueueCounter > 0) {
+    int global_mem_start_idx = atomicAdd(numNextLevelNodes_h, blockQueueCounter);
     for (int idx = threadIdx.x; idx < blockQueueCounter; idx += blockDim.x) {
       // copy data from shared memmory to global memory
-      atomicExch(&nextLevelNodes_h[atomicAdd(numNextLevelNodes_h, 1)],
+      atomicExch(&nextLevelNodes_h[global_mem_start_idx + idx],
                  block_queue[idx]);
     }
   }
@@ -114,7 +130,7 @@ int main(int argc, char *argv[]) {
 
   unordered_set<int> valid_block_size{32, 64};
   unordered_set<int> valid_num_blocks{25, 35};
-  unordered_set<int> valid_block_queue_capacity{32,64};
+  unordered_set<int> valid_block_queue_capacity{32, 64};
   if (valid_num_blocks.find(numBlock) == valid_num_blocks.end() ||
       valid_block_size.find(blockSize) == valid_block_size.end() ||
       valid_block_queue_capacity.find(blockQueueCapacity) ==
