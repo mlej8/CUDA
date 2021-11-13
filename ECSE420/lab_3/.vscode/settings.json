@@ -1,12 +1,15 @@
 {
     "cmake.debugConfig": {
         "args": [
-            "/home/mlej8/Projects/CUDA/ECSE420/lab_3/Input/input1.raw",
-            "/home/mlej8/Projects/CUDA/ECSE420/lab_3/Input/input2.raw",
-            "/home/mlej8/Projects/CUDA/ECSE420/lab_3/Input/input3.raw",
-            "/home/mlej8/Projects/CUDA/ECSE420/lab_3/Input/input4.raw",
-            "/home/mlej8/Projects/CUDA/ECSE420/lab_3/Output/nodeOutput.raw",
-            "/home/mlej8/Projects/CUDA/ECSE420/lab_3/Output/nextLevelNodes.raw"
+            "/home/mlej8/projects/CUDA/ECSE420/lab_3/Input/input1.raw",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_3/Input/input2.raw",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_3/Input/input3.raw",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_3/Input/input4.raw",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_3/Output/nodeOutput.raw",
+            "/home/mlej8/projects/CUDA/ECSE420/lab_3/Output/nextLevelNodes.raw",
+            "25",
+            "32",
+            "32"
         ]
     },"files.associations": {
         "string": "cpp",

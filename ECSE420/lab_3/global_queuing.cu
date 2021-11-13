@@ -17,7 +17,7 @@ __global__ void global_queuing(int numCurrLevelNodes,
                                int *nodeInput_h,
                                int *nextLevelNodes_h,
                                int *numNextLevelNodes_h) {
-    int stride = blockDim.x * gridDim.x; // number of blocks * number of threads per block
+    int stride = blockDim.x * gridDim.x; // number of threads per block * number of blocks
     int index = blockDim.x * blockIdx.x + threadIdx.x;
     
     //Loop over all nodes in the current level
@@ -129,8 +129,6 @@ int main(int argc, char *argv[]) {
     cudaMallocManaged(&nextLevelNodes_h, numTotalNeighbors_h * sizeof(int));
     cudaMallocManaged(&numNextLevelNodes_h, sizeof(int));
 
-    // cout << *numNextLevelNodes_h;
-
     // launching kernel
     global_queuing<<<numBlock, blockSize>>>(
         numCurrLevelNodes,
@@ -157,6 +155,8 @@ int main(int argc, char *argv[]) {
     cudaFree(gpu_nodeGate_h);
     cudaFree(gpu_nodeInput_h);
     cudaFree(gpu_nodeOutput_h);
+    cudaFree(nextLevelNodes_h);
+    cudaFree(numNextLevelNodes_h);
     free(nodePtrs_h);
     free(nodeNeighbors_h);
     free(nodeVisited_h);
