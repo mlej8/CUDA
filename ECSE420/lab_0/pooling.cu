@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
     pool<<<num_blocks, block_size>>>(gpu_image, new_image, width, height, num_channels);
 
     // tell CPU to wait until all threads in kernel are done execution before
-    // accessing the resultsa
+    // accessing the results
     cudaDeviceSynchronize();
 
     // 5. Transfer results from device to host

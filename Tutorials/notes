@@ -1,0 +1,10 @@
+CUDA execution flow
+1. Allocate host memory and initialize host data (input data)
+2. Allocate device memory
+3. Transfer input data from host to device memory.
+4. Execute kernels
+5. Transfer output (result) from device memory to host memory.
+
+cudaDeviceSynchronize(): tell CPU to wait until all threads in kernel are done before accessing results.
+
+Unified Memory
