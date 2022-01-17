@@ -1,0 +1,17 @@
+CUDA Programming:
+    ✔ Learn about CUDA execution model @done(22-01-17 13:51)
+    ☐ Intro to Parallel Programming Udacity course https://classroom.udacity.com/courses/cs344 https://www.youtube.com/watch?v=F620ommtjqk&list=PLGvfHSgImk4aweyWlhBXNF6XISY3um82_
+    ☐ https://developer.nvidia.com/educators/existing-courses
+    ☐ Optimization of Matrix Multiplications in CUDA: https://www.youtube.com/watch?v=b8ESCws3_1s
+    Shared Memory:
+        ☐ Mark Harris blog NVIDIA Developer Post
+        ☐ https://www.youtube.com/watch?v=_CaiES6HsMg&list=PLTgRMOcmRb3O5Xc8PJckYdbyCr5HPGx4e&index=4
+    ☐ Concurrency and Streams: https://www.youtube.com/watch?v=fqkEEjfOxRI&list=PLTgRMOcmRb3O5Xc8PJckYdbyCr5HPGx4e&index=6
+    ☐ CUDA Programming: https://www.youtube.com/watch?v=xwbD6fL5qC8
+    ☐ https://www.bu.edu/pasi/files/2011/07/Lecture31.pdf
+    ☐ https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/
+    ☐ https://www.olcf.ornl.gov/wp-content/uploads/2019/12/02-CUDA-Shared-Memory.pdf
+    ☐ https://www.youtube.com/watch?v=upGoZ00MlfI&t=73s
+    ☐ https://developer.nvidia.com/blog/efficient-matrix-transpose-cuda-cc/
+    ☐ https://developer.nvidia.com/blog/how-access-global-memory-efficiently-cuda-c-kernels/
+    

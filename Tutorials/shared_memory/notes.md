@@ -1,6 +1,7 @@
 # Shared Memory
 Tutorials: 
 - [Using Shared Memory in CUDA C/C++](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/)
+- [Shared Memory CUDA Documentation Tutorial](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#shared-memory)
 
 ## Why bother with threads if you can do the same thing using blocks?
 Threads have mechanisms to:
