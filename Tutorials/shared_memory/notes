@@ -1,0 +1,13 @@
+# Shared Memory
+Tutorials: 
+- [Using Shared Memory in CUDA C/C++](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/)
+
+## Why bother with threads if you can do the same thing using blocks?
+Threads have mechanisms to:
+1. Communicate between threads
+2. Synchronize between threads. There is no way to synchronize blocks.
+
+- Within a block, threads share data via shared memory
+- Shared memory is extremely fast on-chip memory and user-managed
+- Declare using `__shared__` and allocated per block.
+- Data is not visible to threads in other blocks
